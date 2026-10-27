@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estación meteorológica</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <div>
+        <p class="eyebrow">MONITOREO AMBIENTAL</p>
+        <h1>Estación meteorológica</h1>
+      </div>
+      <span id="status" class="status">Conectando...</span>
+    </header>
+
+    <section class="panel chart-panel" aria-labelledby="chart-title">
+      <div class="section-heading">
+        <div>
+          <h2 id="chart-title">Evolución en el tiempo</h2>
+          <p>Últimas mediciones registradas</p>
+        </div>
+        <label for="metric">Variable
+          <select id="metric">
+            <option value="temperature_bmp_c">Temperatura BMP (°C)</option>
+            <option value="temperature_dht_c">Temperatura DHT (°C)</option>
+            <option value="pressure_hpa">Presión atmosférica (hPa)</option>
+            <option value="air_humidity_percent">Humedad del aire (%)</option>
+            <option value="soil_humidity_percent">Humedad del suelo (%)</option>
+          </select>
+        </label>
+      </div>
+      <canvas id="chart" aria-label="Gráfico de evolución temporal"></canvas>
+      <p id="empty-chart" class="empty" hidden>Aún no hay mediciones para mostrar.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="table-title">
+      <div class="section-heading">
+        <div>
+          <h2 id="table-title">Mediciones</h2>
+          <p>Las lecturas más recientes aparecen al final de la tabla.</p>
+        </div>
+        <span id="count" class="count"></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha y hora</th>
+              <th>Temp. BMP</th>
+              <th>Temp. DHT</th>
+              <th>Presión</th>
+              <th>Humedad aire</th>
+              <th>Suelo RAW</th>
+              <th>Humedad suelo</th>
+            </tr>
+          </thead>
+          <tbody id="measurements"></tbody>
+        </table>
+      </div>
+      <p id="empty-table" class="empty" hidden>Aún no se recibieron mediciones.</p>
+    </section>
+    <p id="error" class="error" role="alert" hidden></p>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>
